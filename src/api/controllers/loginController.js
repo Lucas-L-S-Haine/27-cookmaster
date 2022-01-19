@@ -1,10 +1,10 @@
-const { insertUser } = require('../models/loginModel');
+const { insertLogin } = require('../models/loginModel');
 
 const insert = async (req, res, next) => {
   try {
     const user = req.body;
-    const response = await insertUser(user);
-    return res.status(201).json(response.ops[0]);
+    const response = await insertLogin(user);
+    return res.status(200).json(response.ops[0]);
   } catch (err) {
     // console.error('Error:', err.message);
     next(err);

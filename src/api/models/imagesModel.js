@@ -1,4 +1,4 @@
-const connection = require('./connections');
+/* const connection = require('./connections');
 
 const viewImage = async (image) => {
   const newConnection = await connection();
@@ -10,4 +10,4 @@ const viewImage = async (image) => {
 
 module.exports = {
   viewImage,
-};
+}; */
