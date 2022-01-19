@@ -5,6 +5,6 @@ const usersRouter = express.Router();
 
 usersRouter
   .route('/')
-  .post(insert)
+  .post(insert);
 
 module.exports = usersRouter;

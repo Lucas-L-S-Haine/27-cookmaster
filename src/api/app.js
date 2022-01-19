@@ -2,8 +2,6 @@ require('dotenv').config();
 
 const express = require('express');
 
-const MONGO_DB_URL = `mongodb://${process.env.HOST || 'mongodb'}:27017/Cookmaster`;
-const DB_NAME = 'Cookmaster';
 const {
   usersRouter,
   loginRouter,
@@ -12,6 +10,7 @@ const {
 } = require('./routes');
 
 const app = express();
+app.use(express.json());
 
 app.use('/users', usersRouter);
 app.use('/login', loginRouter);

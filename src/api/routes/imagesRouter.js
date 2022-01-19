@@ -1,10 +1,10 @@
 const express = require('express');
-const {  } = require('../controllers/imagesController');
+const { view } = require('../controllers/imagesController');
 
 const imagesRouter = express.Router();
 
 imagesRouter
   .route('/:id')
-  .get()
+  .get(view);
 
 module.exports = imagesRouter;

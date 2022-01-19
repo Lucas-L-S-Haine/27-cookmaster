@@ -1,21 +1,24 @@
 const express = require('express');
-const { insert } = require('../controllers/recipesController');
+const {
+  insert, readAll, read, update,
+  remove, updateImage,
+} = require('../controllers/recipesController');
 
 const recipesRouter = express.Router();
 
 recipesRouter
   .route('/')
   .post(insert)
-  .get();
+  .get(readAll);
 
 recipesRouter
   .route('/:id')
-  .get()
-  .put()
-  .delete();
+  .get(read)
+  .put(update)
+  .delete(remove);
 
 recipesRouter
   .route('/:id/image')
-  .put();
+  .put(updateImage);
 
 module.exports = recipesRouter;

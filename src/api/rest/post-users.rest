@@ -1,3 +1,8 @@
 http://localhost:3000
 
 POST /users
+{
+  "name": "Paladin",
+  "email": "pantheon@paladin.arton",
+  "password": "TheStrongest"
+}
