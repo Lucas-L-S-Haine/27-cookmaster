@@ -3,7 +3,7 @@ const usersModel = require('../models/usersModel');
 
 const userSchema = Joi.object({
     name: Joi.string().required(),
-    email: Joi.string().required(),
+    email: Joi.string().email().required(),
     password: Joi.string().required(),
 });
 
