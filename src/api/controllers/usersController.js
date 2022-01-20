@@ -6,14 +6,17 @@ const {
 
 const insert = async (req, res, _next) => {
   try {
-    const user = req.body;
-    console.log('controller', user);
-    const response = await newUserValidate(user);
-    return res.status(201).json(response.ops[0]);
+    const user = { ...req.body, role: 'user' };
+    const userData = await newUserValidate(user);
+    const data = userData.ops[0];
+    const response = { user: {
+      name: data.name,
+      email: data.email,
+      role: data.role,
+    } };
+    return res.status(201).json(response);
   } catch (err) {
-    // console.error('Error:', err.message);
-    console.log(err);
-    return res.status(400).json({ message: 'Invalid entries. Try again.' });
+    return res.status(err.status).json({ message: err.message });
   }
 };
 

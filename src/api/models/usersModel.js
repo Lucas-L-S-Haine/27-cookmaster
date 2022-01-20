@@ -7,6 +7,14 @@ const insertUser = async (user) => {
   return newUser;
 };
 
+const findUserByEmail = async (email) => {
+  const newConnection = await connection();
+  const user = await newConnection
+    .collection('users').findOne({ email });
+  return user;
+};
+
 module.exports = {
   insertUser,
+  findUserByEmail,
 };
