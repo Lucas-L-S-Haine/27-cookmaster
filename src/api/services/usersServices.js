@@ -13,11 +13,10 @@ const newError = (err) => (err);
 const newUserValidate = async (user) => {
   const { error } = userSchema.validate(user);
   if (error) {
-    console.log(error);
     throw newError({ status: 400, message: 'Invalid entries. Try again.' });
   }
-  if (!(await findUserByEmail(user.email))) {
-    throw newError({ status: 355, message: error.message });
+  if (await findUserByEmail(user.email)) {
+    throw newError({ status: 409, message: 'Email already registered' });
   }
   const createdUser = await insertUser(user);
   return createdUser;
