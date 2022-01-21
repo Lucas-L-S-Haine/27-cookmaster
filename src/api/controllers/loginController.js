@@ -13,7 +13,7 @@ const insert = async (req, res, _next) => {
     const login = req.body;
     const response = await loginValidate(login);
     const payload = response.ops[0];
-    const token = jwt.sign({ payload }, secret, jwtConfig);
+    const token = jwt.sign(payload, secret, jwtConfig);
     return res.status(200).json(token);
   } catch (err) {
     return res.status(err.status).json({ message: err.message });
