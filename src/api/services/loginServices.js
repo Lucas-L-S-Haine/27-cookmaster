@@ -11,7 +11,6 @@ const regEmail = /\S+@[a-z]{3,}\.[a-z]{3,}/;
 
 const loginValidate = async (login) => {
   const { error } = loginSchema.validate(login);
-  console.log(error);
   if (error) {
     const message = !login.password || !login.email
       ? 'All fields must be filled' : 'Incorrect username or password';
