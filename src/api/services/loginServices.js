@@ -1,7 +1,6 @@
 const Joi = require('joi');
 const { insertLogin } = require('../models/loginModel');
-
-const newError = (err) => (err);
+const { identity: newError } = require('../utils/functions');
 
 const loginSchema = Joi.object({
     email: Joi.string().email().required(),

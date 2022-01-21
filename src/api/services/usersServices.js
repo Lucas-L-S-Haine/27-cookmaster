@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const { insertUser, findUserByEmail } = require('../models/usersModel');
+const { identity: newError } = require('../utils/functions');
 
 const userSchema = Joi.object({
     name: Joi.string().required(),
@@ -7,8 +8,6 @@ const userSchema = Joi.object({
     password: Joi.string().required(),
     role: Joi.string().required(),
 });
-
-const newError = (err) => (err);
 
 const newUserValidate = async (user) => {
   const { error } = userSchema.validate(user);
