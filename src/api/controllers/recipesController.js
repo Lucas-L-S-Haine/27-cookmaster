@@ -1,17 +1,13 @@
-const { insertUser } = require('../models/usersModel');
+// const { recipeValidate } = require('../services/recipesServices');
+const { readAllRecipes } = require('../models/recipesModel');
 
-const insert = async (req, res, next) => {
-  try {
-    const user = req.body;
-    const response = await insertUser(user);
-    return res.status(201).json(response.ops[0]);
-  } catch (err) {
-    // console.error('Error:', err.message);
-    next(err);
-  }
+const insert = () => {};
+
+const readAll = async (req, res) => {
+  const response = await readAllRecipes();
+  console.log(response);
+  return res.status(200).json(response);
 };
-
-const readAll = () => {};
 
 const read = () => {};
 
