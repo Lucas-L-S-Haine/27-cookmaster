@@ -3,17 +3,18 @@ const {
   insert, readAll, read, update,
   remove, updateImage,
 } = require('../controllers/recipesController');
+const validateJWT = require('../auth/validateJWT');
 
 const recipesRouter = express.Router();
 
 recipesRouter
   .route('/')
-  .post(insert)
-  .get(readAll);
+  .post(validateJWT, insert)
+  .get(validateJWT, readAll);
 
 recipesRouter
   .route('/:id')
-  .get(read)
+  .get(validateJWT, read)
   .put(update)
   .delete(remove);
 

@@ -17,10 +17,10 @@ const readAllRecipes = async () => {
 
 const readRecipe = async (id) => {
   const recipeId = new ObjectId(id);
-  console.log(recipeId);
   const newConnection = await connection();
   const recipe = await newConnection
     .collection('recipes').findOne(recipeId);
+  console.log('model', recipe);
   return recipe;
 };
 

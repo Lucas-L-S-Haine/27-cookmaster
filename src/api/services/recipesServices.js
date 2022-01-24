@@ -1,5 +1,7 @@
 const Joi = require('joi');
-const { insertRecipe } = require('../models/recipesModel');
+const {
+  insertRecipe, readRecipe,
+} = require('../models/recipesModel');
 const { identity: newError } = require('../utils/functions');
 
 const recipeSchema = Joi.object({
@@ -23,6 +25,16 @@ const recipeValidate = async (recipe) => {
   return newRecipe;
 };
 
+const readRecipeValidate = async (id) => {
+  const response = await readRecipe(id);
+  if (!response) {
+    throw newError({ status: 123, message: 'qualquer coisa' });
+  }
+  console.log('service', response);
+  return response;
+};
+
 module.exports = {
   recipeValidate,
+  readRecipeValidate,
 };

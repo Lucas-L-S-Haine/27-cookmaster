@@ -1,4 +1,6 @@
-const { recipeValidate } = require('../services/recipesServices');
+const {
+  recipeValidate, readRecipeValidate,
+} = require('../services/recipesServices');
 const { readAllRecipes, readRecipe } = require('../models/recipesModel');
 
 const insert = async (req, res) => {
@@ -17,10 +19,15 @@ const readAll = async (req, res) => {
 };
 
 const read = async (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  const response = await readRecipe(id);
-  return res.status(200).json(response);
+  try {
+    const { id } = req.params;
+    const response = await readRecipeValidate(id);
+    console.log('controller', response);
+    return res.status(200).json(response);
+  } catch (err) {
+    console.log('controller error', err);
+    return res.status(err.status).json({ message: err.message });
+  }
 };
 
 const update = () => {};
