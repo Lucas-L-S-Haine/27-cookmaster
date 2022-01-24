@@ -1,7 +1,7 @@
 const {
   recipeValidate, readRecipeValidate,
 } = require('../services/recipesServices');
-const { readAllRecipes, readRecipe } = require('../models/recipesModel');
+const { readAllRecipes } = require('../models/recipesModel');
 
 const insert = async (req, res) => {
   try {
