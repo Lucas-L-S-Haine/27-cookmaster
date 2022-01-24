@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { insertLogin } = require('../models/loginModel');
+const { login } = require('../models/loginModel');
 const { identity: newError } = require('../utils/functions');
 
 const loginSchema = Joi.object({
@@ -8,18 +8,18 @@ const loginSchema = Joi.object({
 });
 const regEmail = /\S+@[a-z]{3,}\.[a-z]{3,}/;
 
-const loginValidate = async (login) => {
-  const { error } = loginSchema.validate(login);
+const loginValidate = async (loginData) => {
+  const { error } = loginSchema.validate(loginData);
   if (error) {
-    const message = !login.password || !login.email
+    const message = !loginData.password || !loginData.email
       ? 'All fields must be filled' : 'Incorrect username or password';
     throw newError({ status: 401, message });
   }
-  if (!regEmail.test(login.email)) {
+  if (!regEmail.test(loginData.email)) {
     const message = 'Incorrect username or password';
     throw newError({ status: 401, message });
   }
-  const newLogin = await insertLogin(login);
+  const newLogin = await login(loginData);
   return newLogin;
 };
 

@@ -1,12 +1,13 @@
 const connection = require('./connections');
 
-const insertLogin = async (login) => {
+const login = async (loginData) => {
   const newConnection = await connection();
+  const { email, password } = loginData;
   const newLogin = await newConnection
-    .collection('users').insertOne(login);
+    .collection('users').findOne({ email, password });
   return newLogin;
 };
 
 module.exports = {
-  insertLogin,
+  login,
 };
