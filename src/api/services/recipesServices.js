@@ -12,12 +12,12 @@ const recipeValidate = async (recipe) => {
   const { error } = recipeSchema.validate(recipe);
   if (error) {
     const message = !recipe.password || !recipe.email
-      ? 'All fields must be filled' : 'Incorrect username or password';
-    throw newError({ status: 401, message });
+      ? 'Invalid entries. Try again.' : 'Incorrect user username or password';
+    throw newError({ status: 400, message });
   }
   if (!regEmail.test(recipe.email)) {
     const message = 'Incorrect username or password';
-    throw newError({ status: 401, message });
+    throw newError({ status: 555, message });
   }
   const newRecipe = await insertRecipe(recipe);
   return newRecipe;
