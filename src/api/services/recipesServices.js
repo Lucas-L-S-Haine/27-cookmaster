@@ -2,7 +2,6 @@ const Joi = require('joi');
 const {
   insertRecipe, readRecipe, readAllRecipes,
 } = require('../models/recipesModel');
-const { insertJWT, readAllJWT, readJWT } = require('../auth/validateJWT');
 const { identity: newError } = require('../utils/functions');
 
 const recipeSchema = Joi.object({

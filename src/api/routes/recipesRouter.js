@@ -3,7 +3,7 @@ const {
   insert, readAll, read, update,
   remove, updateImage,
 } = require('../controllers/recipesController');
-const { insertJWT, readAllJWT, readJWT } = require('../auth/validateJWT');
+const { readJWT } = require('../auth/validateJWT');
 
 const recipesRouter = express.Router();
 
