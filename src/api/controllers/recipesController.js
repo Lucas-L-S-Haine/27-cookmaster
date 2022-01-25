@@ -1,5 +1,8 @@
 const {
-  recipeValidate, readRecipeValidate, readAllRecipesValidate,
+  readAllRecipes,
+} = require('../models/recipesModel');
+
+const {
 } = require('../services/recipesServices');
 
 const insert = async (req, res) => {
@@ -13,8 +16,8 @@ const insert = async (req, res) => {
 };
 
 const readAll = async (req, res) => {
-  const response = await readAllRecipesValidate();
-  return res.status(200).json(response);
+  const recipes = await readAllRecipes();
+  return res.status(200).json(recipes);
 };
 
 const read = async (req, res) => {
