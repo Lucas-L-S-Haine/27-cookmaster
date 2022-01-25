@@ -1,10 +1,11 @@
 const { ObjectId } = require('mongodb');
 const connection = require('./connections');
 
-const insertRecipe = async (recipe) => {
+const insertRecipe = async (name, ingredients, preparation, userId) => {
   const newConnection = await connection();
   const newRecipe = await newConnection
-    .collection('recipes').insertOne(recipe);
+    .collection('recipes')
+    .insertOne({ name, ingredients, preparation, userId });
   return newRecipe;
 };
 
@@ -17,10 +18,31 @@ const readAllRecipes = async () => {
 
 const readRecipe = async (id) => {
   const recipeId = new ObjectId(id);
+  if (!ObjectId.isValid(id)) return null;
   const newConnection = await connection();
   const recipe = await newConnection
-    .collection('recipes').findOne(recipeId);
-  console.log('model', recipe);
+    .collection('recipes').findOne({ _id: recipeId });
+  return recipe;
+};
+
+const updateRecipe = async (id, name, ingredients, preparation) => {
+  const recipeId = new ObjectId(id);
+  const newConnection = await connection();
+  await newConnection
+    .collection('recipes')
+    .updateOne(
+      { _id: recipeId },
+      { $set: { name, ingredients, preparation } },
+    );
+  const recipe = await newConnection.collection('recipes').findOne(recipeId);
+  return recipe;
+};
+
+const deleteRecipe = async (id) => {
+  const recipeId = new ObjectId(id);
+  const newConnection = await connection();
+  const recipe = await newConnection.collection('recipes').findOne(recipeId);
+  await newConnection.collection('products').deleteOne({ _id: recipeId });
   return recipe;
 };
 
@@ -28,4 +50,6 @@ module.exports = {
   insertRecipe,
   readAllRecipes,
   readRecipe,
+  updateRecipe,
+  deleteRecipe,
 };
