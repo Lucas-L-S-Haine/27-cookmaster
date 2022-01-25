@@ -3,7 +3,7 @@ const model = require('../models/usersModel');
 
 const secret = 'secret';
 
-const insertJWT = async (req, res, next) => {
+const insertJWT = async (req, res, _next) => {
   const token = req.headers.authorization;
   if (!token) {
     return res.status(200).json({ error: 'Token não encontrado' });
@@ -16,7 +16,6 @@ const insertJWT = async (req, res, next) => {
         .json({ message: 'Erro ao procurar usuário do token' });
     }
   req.user = user;
-  next();
   } catch (err) {
     return res.status(401).json({ message: err.message });
   }
@@ -36,7 +35,7 @@ const readJWT = async (req, res, next) => {
   req.user = user;
   next();
   } catch (err) {
-    return res.status(555).json({ message: err.message });
+    return res.status(404).json({ message: 'recipe not found' });
   }
 };
 const readAllJWT = async (req, res, next) => {
@@ -54,7 +53,8 @@ const readAllJWT = async (req, res, next) => {
   req.user = user;
   next();
   } catch (err) {
-    return res.status(333).json({ message: err.message });
+    console.log('auth', err);
+    return res.status(400).json({ message: err.message });
   }
 };
 

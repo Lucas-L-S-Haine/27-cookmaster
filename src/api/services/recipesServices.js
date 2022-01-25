@@ -1,14 +1,15 @@
 const Joi = require('joi');
 const {
-  insertRecipe, readRecipe,
+  insertRecipe, readRecipe, readAllRecipes,
 } = require('../models/recipesModel');
+const { insertJWT, readAllJWT, readJWT } = require('../auth/validateJWT');
 const { identity: newError } = require('../utils/functions');
 
 const recipeSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    name: Joi.string().required(),
+    ingredients: Joi.string().required(),
+    preparation: Joi.string().required(),
 });
-const regEmail = /\S+@[a-z]{3,}\.[a-z]{3,}/;
 
 const recipeValidate = async (recipe) => {
   const { error } = recipeSchema.validate(recipe);
@@ -16,10 +17,6 @@ const recipeValidate = async (recipe) => {
     const message = !recipe.password || !recipe.email
       ? 'Invalid entries. Try again.' : 'Incorrect user username or password';
     throw newError({ status: 400, message });
-  }
-  if (!regEmail.test(recipe.email)) {
-    const message = 'Incorrect username or password';
-    throw newError({ status: 555, message });
   }
   const newRecipe = await insertRecipe(recipe);
   return newRecipe;
@@ -30,11 +27,20 @@ const readRecipeValidate = async (id) => {
   if (!response) {
     throw newError({ status: 123, message: 'qualquer coisa' });
   }
-  console.log('service', response);
   return response;
+};
+
+const readAllRecipesValidate = async () => {
+  try {
+    const response = await readAllRecipes();
+    return response;
+  } catch (err) {
+    throw newError({ status: 234, message: 'xablau' });
+  }
 };
 
 module.exports = {
   recipeValidate,
   readRecipeValidate,
+  readAllRecipesValidate,
 };

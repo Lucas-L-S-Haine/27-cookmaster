@@ -9,8 +9,8 @@ const recipesRouter = express.Router();
 
 recipesRouter
   .route('/')
-  .post(insertJWT, insert)
-  .get(readAllJWT, readAll);
+  .post(insert)
+  .get(readAll);
 
 recipesRouter
   .route('/:id')
