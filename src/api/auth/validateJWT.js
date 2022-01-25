@@ -2,6 +2,10 @@ const jwt = require('jsonwebtoken');
 const { identity: newError } = require('../utils/functions');
 
 const secret = 'secret';
+const jwtConfig = {
+  expiresIn: '7d',
+  algorithm: 'HS256',
+};
 
 const insertJWT = async (req, res, _next) => {
   const token = req.headers.authorization;
