@@ -1,25 +1,27 @@
-const express = require('express');
+const rescue = require('express-rescue');
 const {
   insert, readAll, read, update,
   remove, updateImage,
 } = require('../controllers/recipesController');
-const { readJWT } = require('../auth/validateJWT');
+const {
+  validateJWT,
+} = require('../auth/validateJWT');
 
-const recipesRouter = express.Router();
+const recipesRouter = (app) => {
+  app
+    .route('/recipes')
+    .get(rescue(readAll))
+    .post(rescue(validateJWT), rescue(insert));
 
-recipesRouter
-  .route('/')
-  .post(insert)
-  .get(readAll);
+  app
+    .route('/recipes/:id')
+    .get(rescue(read))
+    .put(rescue(validateJWT), rescue(update))
+    .delete(rescue(validateJWT), rescue(remove));
 
-recipesRouter
-  .route('/:id')
-  .get(readJWT, read)
-  .put(update)
-  .delete(remove);
-
-recipesRouter
-  .route('/:id/image')
-  .put(updateImage);
+  app
+    .route('/recipes/:id/image')
+    .put(rescue(validateJWT), rescue(updateImage));
+};
 
 module.exports = recipesRouter;

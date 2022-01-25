@@ -1,10 +1,15 @@
-const express = require('express');
-const { insert } = require('../controllers/usersController');
+const rescue = require('express-rescue');
+const { insert, createAdmin } = require('../controllers/usersController');
+const { validateJWT } = require('../auth/validateJWT');
 
-const usersRouter = express.Router();
+const usersRouter = (app) => {
+  app
+    .route('/users')
+    .post(rescue(insert));
 
-usersRouter
-  .route('/')
-  .post(insert);
+  app
+    .route('/users/admin')
+    .post(rescue(validateJWT), rescue(createAdmin));
+};
 
 module.exports = usersRouter;

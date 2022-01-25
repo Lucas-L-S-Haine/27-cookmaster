@@ -12,9 +12,9 @@ const {
 const app = express();
 app.use(express.json());
 
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/recipes', recipesRouter);
+usersRouter(app);
+loginRouter(app);
+recipesRouter(app);
 app.use('/images', imagesRouter);
 
 // Não remover esse end-point, ele é necessário para o avaliador
