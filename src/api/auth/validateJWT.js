@@ -7,22 +7,10 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const insertJWT = async (req, res, _next) => {
-  const token = req.headers.authorization;
-  if (!token) {
-    return res.status(200).json({ error: 'Token não encontrado' });
-  }
-  try {
-    const decoded = jwt.verify(token, secret);
-    const user = await model.findUser(decoded.data.username);
-    if (!user) {
-      return res.status(433)
-        .json({ message: 'Erro ao procurar usuário do token' });
-    }
-  req.user = user;
-  } catch (err) {
-    return res.status(401).json({ message: err.message });
-  }
+const insertJWT = async (user) => {
+  const { ...payload } = user;
+  const token = jwt.sign(payload, secret, jwtConfig);
+  return token;
 };
 
 const validateJWT = (req, _res, next) => {
@@ -41,5 +29,6 @@ const validateJWT = (req, _res, next) => {
 };
 
 module.exports = {
+  insertJWT,
   validateJWT,
 };
