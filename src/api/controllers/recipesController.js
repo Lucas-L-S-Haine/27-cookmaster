@@ -1,6 +1,8 @@
+const { join } = require('path');
 const {
   readAllRecipes,
   updateRecipe,
+  updateRecipeImage,
 } = require('../models/recipesModel');
 
 const {
@@ -9,6 +11,9 @@ const {
   ownerValidate,
   deletedRecipeValidate,
 } = require('../services/recipesServices');
+
+const HOST = process.env.HOST || 'localhost';
+const PORT = process.env.PORT || 3000;
 
 const insert = async (req, res) => {
   const { name, ingredients, preparation } = req.body;
@@ -47,7 +52,13 @@ const remove = async (req, res) => {
   return res.status(204).end();
 };
 
-const updateImage = () => {};
+const updateImage = async (req, res) => {
+  const { id } = req.params;
+  const { filename } = req.file;
+  const imagePath = join(`${HOST}:${PORT}`, 'src', 'uploads', filename);
+  const response = await updateRecipeImage(id, imagePath);
+  return res.status(200).json(response);
+};
 
 module.exports = {
   insert,

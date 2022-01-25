@@ -29,8 +29,7 @@ const updateRecipe = async (id, name, ingredients, preparation) => {
   const recipeId = new ObjectId(id);
   const newConnection = await connection();
   await newConnection
-    .collection('recipes')
-    .updateOne(
+    .collection('recipes').updateOne(
       { _id: recipeId },
       { $set: { name, ingredients, preparation } },
     );
@@ -46,10 +45,23 @@ const deleteRecipe = async (id) => {
   return recipe;
 };
 
+const updateRecipeImage = async (id, imagePath) => {
+  const imageId = new ObjectId(id);
+  const newConnection = await connection();
+  await newConnection.collection('recipes')
+    .updateOne(
+      { _id: imageId },
+      { $set: { image: imagePath } },
+    );
+  const image = await newConnection.collection('recipes').findOne(imageId);
+  return image;
+};
+
 module.exports = {
   insertRecipe,
   readAllRecipes,
   readRecipe,
   updateRecipe,
   deleteRecipe,
+  updateRecipeImage,
 };
