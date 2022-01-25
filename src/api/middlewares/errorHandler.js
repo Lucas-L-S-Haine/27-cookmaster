@@ -4,7 +4,6 @@ const handleError = (err, req, res, _next) => {
     return res
       .status(err.status).json({ message: 'Invalid entries. Try again' });
   }
-  console.log('middleware', err);
   return res.status(200).json({});
 };
 
