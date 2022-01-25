@@ -41,4 +41,5 @@ const validateJWT = (req, _res, next) => {
 };
 
 module.exports = {
+  validateJWT,
 };
