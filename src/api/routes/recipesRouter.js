@@ -6,6 +6,7 @@ const {
 const {
   validateJWT,
 } = require('../auth/validateJWT');
+const { upload: uploadImage } = require('../middlewares/uploadFile');
 
 const recipesRouter = (app) => {
   app
@@ -21,7 +22,7 @@ const recipesRouter = (app) => {
 
   app
     .route('/recipes/:id/image')
-    .put(rescue(validateJWT), rescue(updateImage));
+    .put(rescue(validateJWT), rescue(uploadImage), updateImage);
 };
 
 module.exports = recipesRouter;
