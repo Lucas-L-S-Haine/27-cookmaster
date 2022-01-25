@@ -18,13 +18,9 @@ const readAll = async (req, res) => {
 };
 
 const read = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const response = await readRecipeValidate(id);
-    return res.status(200).json(response);
-  } catch (err) {
-    return res.status(err.status).json({ message: err.message });
-  }
+  const { id } = req.params;
+  const response = await readRecipeValidate(id);
+  return res.status(200).json(response);
 };
 
 const update = () => {};
