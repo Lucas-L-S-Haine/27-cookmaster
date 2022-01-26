@@ -41,7 +41,7 @@ const deleteRecipe = async (id) => {
   const recipeId = new ObjectId(id);
   const newConnection = await connection();
   const recipe = await newConnection.collection('recipes').findOne(recipeId);
-  await newConnection.collection('products').deleteOne({ _id: recipeId });
+  await newConnection.collection('recipes').deleteOne({ _id: recipeId });
   return recipe;
 };
 

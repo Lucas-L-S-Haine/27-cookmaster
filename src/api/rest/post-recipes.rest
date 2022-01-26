@@ -1,3 +1,8 @@
 http://localhost:3000
 
 POST /recipes
+{
+  "name": "x-burger",
+  "ingredients": "pão, hambúrguer, queijo",
+  "preparation": "esquenta o hambúrguer, bota tudo no pão e come"
+}

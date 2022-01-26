@@ -1,10 +1,6 @@
 const handleError = (err, req, res, _next) => {
   if (err.status) return res.status(err.status).json({ message: err.message });
-  if (err.joi) {
-    return res
-      .status(err.status).json({ message: 'Invalid entries. Try again' });
-  }
-  return res.status(200).json({});
+  return res.status(404).send({ message: 'recipe not found' });
 };
 
 module.exports = handleError;

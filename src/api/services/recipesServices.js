@@ -3,7 +3,6 @@ const {
   readRecipe,
   deleteRecipe,
 } = require('../models/recipesModel');
-
 const {
   identity: newError,
   recipeValidate,
@@ -30,7 +29,10 @@ const deletedRecipeValidate = async (id) => {
 
 const ownerValidate = async (recipeId, userId, userRole) => {
   const recipe = await readRecipe(recipeId);
-  validRecipe(recipe);
+  console.log('recipe', recipe);
+  if (!recipe) {
+    throw newError({ status: 404, message: 'recipe not found' });
+  }
   if (recipe.userId !== userId && userRole !== 'admin') {
     throw newError({ status: 401, message: 'unauthorized' });
   }

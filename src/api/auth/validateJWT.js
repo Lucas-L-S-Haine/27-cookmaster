@@ -7,8 +7,9 @@ const jwtConfig = {
   algorithm: 'HS256',
 };
 
-const insertJWT = async (user) => {
-  const { ...payload } = user;
+const newToken = async (user) => {
+  const payload = user;
+  delete payload.password;
   const token = jwt.sign(payload, secret, jwtConfig);
   return token;
 };
@@ -29,6 +30,6 @@ const validateJWT = (req, _res, next) => {
 };
 
 module.exports = {
-  insertJWT,
+  newToken,
   validateJWT,
 };

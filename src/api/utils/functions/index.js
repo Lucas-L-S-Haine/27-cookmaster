@@ -1,8 +1,7 @@
 const identity = require('./identity');
-const { recipeValidate, validRecipe } = require('./validations');
+const validations = require('./validations');
 
 module.exports = {
   identity,
-  recipeValidate,
-  validRecipe,
+  ...validations,
 };
