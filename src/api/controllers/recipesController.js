@@ -11,7 +11,6 @@ const {
   ownerValidate,
   deletedRecipeValidate,
 } = require('../services/recipesServices');
-const { identity: newError } = require('../utils/functions');
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;

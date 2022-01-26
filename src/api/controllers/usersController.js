@@ -21,14 +21,10 @@ const insert = async (req, res, _next) => {
 };
 
 const createAdmin = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
-    const { role } = req.user;
-    const wheel = await adminValidate(name, email, password, role);
-    return res.status(201).json({ user: wheel });
-  } catch (err) {
-    throw err;
-  }
+  const { name, email, password } = req.body;
+  const { role } = req.user;
+  const wheel = await adminValidate(name, email, password, role);
+  return res.status(201).json({ user: wheel });
 };
 
 module.exports = {
