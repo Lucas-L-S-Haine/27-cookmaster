@@ -17,7 +17,9 @@ const readRecipeValidate = async (id) => {
 
 const newRecipeValidate = async (name, ingredients, preparation, userId) => {
   recipeValidate(name, ingredients, preparation);
-  const recipe = await insertRecipe(name, ingredients, preparation, userId);
+  const result = await insertRecipe(name, ingredients, preparation, userId);
+  const recipe = { recipe: result.ops[0] };
+  console.log(recipe);
   return recipe;
 };
 
