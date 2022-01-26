@@ -11,6 +11,7 @@ const {
   ownerValidate,
   deletedRecipeValidate,
 } = require('../services/recipesServices');
+const { identity: newError } = require('../utils/functions');
 
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
@@ -53,12 +54,16 @@ const remove = async (req, res) => {
 };
 
 const updateImage = async (req, res) => {
-  const { id } = req.params;
-  const { filename } = req.file;
-  const imagePath = join(`${HOST}:${PORT}`, 'src', 'uploads', filename);
-  console.log('image', imagePath);
-  const response = await updateRecipeImage(id, imagePath);
-  return res.status(200).json(response);
+  try {
+    const { id } = req.params;
+    const { filename } = req.file;
+    const imagePath = join(`${HOST}:${PORT}`, 'src', 'uploads', filename);
+    console.log('image', imagePath);
+    const response = await updateRecipeImage(id, imagePath);
+    return res.status(200).json(response);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = {

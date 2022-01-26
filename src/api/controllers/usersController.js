@@ -27,7 +27,6 @@ const createAdmin = async (req, res) => {
     const wheel = await adminValidate(name, email, password, role);
     return res.status(201).json({ user: wheel });
   } catch (err) {
-    console.log('createAdmin', err);
     throw err;
   }
 };

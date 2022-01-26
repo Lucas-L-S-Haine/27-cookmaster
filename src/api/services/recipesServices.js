@@ -19,7 +19,6 @@ const newRecipeValidate = async (name, ingredients, preparation, userId) => {
   recipeValidate(name, ingredients, preparation);
   const result = await insertRecipe(name, ingredients, preparation, userId);
   const recipe = { recipe: result.ops[0] };
-  console.log(recipe);
   return recipe;
 };
 
@@ -30,13 +29,20 @@ const deletedRecipeValidate = async (id) => {
 };
 
 const ownerValidate = async (recipeId, userId, userRole) => {
-  const recipe = await readRecipe(recipeId);
-  console.log('recipe', recipe);
-  if (!recipe) {
-    throw newError({ status: 404, message: 'recipe not found' });
-  }
-  if (recipe.userId !== userId && userRole !== 'admin') {
-    throw newError({ status: 401, message: 'unauthorized' });
+  try {
+    const recipe = await readRecipe(recipeId);
+    if (!recipe) {
+      throw newError({ status: 404, message: 'recipe not found' });
+    }
+    console.log('role', userRole);
+    console.log('recipe.userId', recipe.userId);
+    console.log('userId', userId);
+    if (userRole === 'admin' || recipe.userId === userId) {
+      return true;
+    }
+      throw newError({ status: 401, message: 'unauthorized' });
+  } catch (err) {
+      console.error(err);
   }
 };
 
