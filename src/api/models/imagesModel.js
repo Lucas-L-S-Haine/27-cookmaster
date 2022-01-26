@@ -1,13 +1,12 @@
-/* const connection = require('./connections');
+const connection = require('./connections');
 
 const viewImage = async (image) => {
   const newConnection = await connection();
-//   const newUser = await newConnection
-//     .collection('users').insertOne(user);
-//   return newUser;
-  console.log('aqui é uma imagem');
+  const newUser = await newConnection
+    .collection('users').insertOne(image);
+  return newUser;
 };
 
 module.exports = {
   viewImage,
-}; */
+};

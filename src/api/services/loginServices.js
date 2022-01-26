@@ -3,10 +3,15 @@ const { newToken } = require('../auth/validateJWT');
 const { identity: newError, loginValidate } = require('../utils/functions');
 
 const regEmail = /\S+@[a-z]{3,}\.[a-z]{3,}/;
+const regPassword = /[a-zA-Z0-9]{8,}/;
 
 const newLoginValidate = async (email, password) => {
   loginValidate(email, password);
   if (!regEmail.test(email)) {
+    const message = 'Incorrect username or password';
+    throw newError({ status: 401, message });
+  }
+  if (!regPassword.test(password) && password !== 'admin') {
     const message = 'Incorrect username or password';
     throw newError({ status: 401, message });
   }
