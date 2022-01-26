@@ -17,7 +17,8 @@ const newUserValidate = async (name, email, password, role) => {
 const adminValidate = async (name, email, password, role) => {
   root(role);
   const userData = await insertUser(name, email, password, role);
-  return userData;
+  const rootUser = userData.ops[0];
+  return rootUser;
 };
 
 module.exports = {
