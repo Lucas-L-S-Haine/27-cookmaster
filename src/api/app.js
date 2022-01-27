@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const path = require('path');
 const errorMiddleware = require('./middlewares/errorHandler');
 
 const {
@@ -24,6 +25,7 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
+app.use(express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(errorMiddleware);
 
 module.exports = app;

@@ -1,13 +1,14 @@
+const { join } = require('path');
 const { viewImage } = require('../models/imagesModel');
 
 const view = async (req, res, next) => {
   try {
-    const image = req.body;
-    console.log('image', image);
-    const response = await viewImage(image);
+    const { id } = req.params;
+    const { filename } = req.file;
+    const imagePath = join('localhost:3000', '..', 'src', 'uploads', filename);
+    const response = await viewImage(id, imagePath);
     return res.status(201).json(response.ops[0]);
   } catch (err) {
-    // console.error('Error:', err.message);
     next(err);
   }
 };

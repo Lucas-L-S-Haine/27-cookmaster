@@ -34,9 +34,6 @@ const ownerValidate = async (recipeId, userId, userRole) => {
     if (!recipe) {
       throw newError({ status: 404, message: 'recipe not found' });
     }
-    console.log('role', userRole);
-    console.log('recipe.userId', recipe.userId);
-    console.log('userId', userId);
     if (userRole === 'admin' || recipe.userId === userId) {
       return true;
     }
