@@ -56,6 +56,7 @@ const updateImage = async (req, res) => {
   try {
     const { id } = req.params;
     const { filename } = req.file;
+    console.log(filename);
     const imagePath = join(`${HOST}:${PORT}`, 'src', 'uploads', filename);
     console.log(imagePath);
     const response = await updateRecipeImage(id, imagePath);
